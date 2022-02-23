@@ -17,6 +17,9 @@ Sources: Codecademy Python3 course, W3Schools, StackOverflow
 
 # There will be three main groups
 # Player, Enemy, NPC
+from numpy import False_
+
+
 class Character:
     
     inventory = {}
@@ -60,8 +63,29 @@ class Character:
             print(f"{enemy.name} has been slain by {self.name}.")
         else:
             print(f"{enemy.name} has {enemy.health} health points remaining.")
-        pass
-
+    
+    def combat(self, enemy):
+        combatActive = True
+        while (self.health > 0) and (enemy.health > 0) and combatActive:
+            playerChoice = int(input("Choose a number:\n1. Attack\n2.Use Item\n3.Flee"))
+            if playerChoice == 1:
+                self.attack(enemy)
+            if playerChoice == 2:
+                self.useItem()
+            if playerChoice == 3:
+                print(f"Your current health is at {self.health} points.")
+                print("You will lose 3 health points if you decide to flee, are you sure?")
+                fleeChoice = input("Yes (Y) / No (N)")
+                if fleeChoice == 'Yes' or fleeChoice == 'Y':
+                    if self.health <= 0:
+                        print("You have died in the process of fleeing.")
+                        gameOver = True
+                        combatActive = False
+                    else:
+                        self.health -= 3
+                        print("You have taken 3 points of damage while fleeing.")
+                        print(f"You now have {self.health} health points remaining.")
+                        combatActive = False
     def useItem(self, item):
         pass
 
@@ -71,6 +95,7 @@ class Character:
     def speak(self, NPC):
         pass
 
+gameOver = False
 c_name = input("Please type in your character's name: ")
 player = Character(c_name, 1, 'Player')
 print(player)
