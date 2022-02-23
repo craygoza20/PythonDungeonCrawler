@@ -95,3 +95,5 @@ if choice1 == 1:
     You go towards the source of the noise and find yourself face to face with a wild boar!
     The boar begins to squeal and is preparing to charge at you!
     """)
+
+# testing commit to github
