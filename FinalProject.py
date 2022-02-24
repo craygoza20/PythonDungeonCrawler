@@ -17,7 +17,6 @@ Sources: Codecademy Python3 course, W3Schools, StackOverflow
 
 # There will be three main groups
 # Player, Enemy, NPC
-from numpy import False_
 
 
 class Character:
@@ -53,6 +52,7 @@ class Character:
             pass
         elif self.group == 'NPC': # TODO: add repr for NPC (shopkeeps)
             pass    
+    
     # TODO: need actions for characters (attack, use items, buy items, talk to others, etc..)
     
     def attack(self, enemy):
@@ -64,6 +64,7 @@ class Character:
         else:
             print(f"{enemy.name} has {enemy.health} health points remaining.")
     
+    # FIXME: Combat loop only allows player to attack, need enemy to attack also
     def combat(self, enemy):
         combatActive = True
         while (self.health > 0) and (enemy.health > 0) and combatActive:
@@ -120,5 +121,3 @@ if choice1 == 1:
     You go towards the source of the noise and find yourself face to face with a wild boar!
     The boar begins to squeal and is preparing to charge at you!
     """)
-
-# testing commit to github
