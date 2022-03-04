@@ -59,34 +59,12 @@ class Character:
         attackpoints = self.attackPower * (1 / enemy.defensePower)
         enemy.health -= attackpoints
         print(f"{self.name} has attacked {enemy.name} for {attackpoints} health.")
-        if enemy.health <= 0:
-            print(f"{enemy.name} has been slain by {self.name}.")
-        else:
-            print(f"{enemy.name} has {enemy.health} health points remaining.")
+        if self.health > 0:
+            if enemy.health <= 0:
+                print(f"{enemy.name} has been slain by {self.name}.")
+            else:
+                print(f"{enemy.name} has {enemy.health} health points remaining.")
     
-    # FIXME: Combat loop only allows player to attack, need enemy to attack also
-    def combat(self, enemy):
-        combatActive = True
-        while (self.health > 0) and (enemy.health > 0) and combatActive:
-            playerChoice = int(input("Choose a number:\n1. Attack\n2.Use Item\n3.Flee"))
-            if playerChoice == 1:
-                self.attack(enemy)
-            if playerChoice == 2:
-                self.useItem()
-            if playerChoice == 3:
-                print(f"Your current health is at {self.health} points.")
-                print("You will lose 3 health points if you decide to flee, are you sure?")
-                fleeChoice = input("Yes (Y) / No (N)")
-                if fleeChoice == 'Yes' or fleeChoice == 'Y':
-                    if self.health <= 0:
-                        print("You have died in the process of fleeing.")
-                        gameOver = True
-                        combatActive = False
-                    else:
-                        self.health -= 3
-                        print("You have taken 3 points of damage while fleeing.")
-                        print(f"You now have {self.health} health points remaining.")
-                        combatActive = False
     def useItem(self, item):
         pass
 
