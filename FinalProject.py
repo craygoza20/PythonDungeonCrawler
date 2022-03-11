@@ -86,6 +86,13 @@ class Character:
                 print(f"{enemy.name} has been slain by {self.name}.")
             else:
                 print(f"{enemy.name} has {enemy.health} health points remaining." + "\n")
+
+    # using this method to set inventory for shops
+    def setInventory(self, items, amount):
+        itemsList = [items]
+        itemAmountsList = [amount]
+        self.inventory = dict(zip(itemsList, itemAmountsList))
+        
     
     def useItem(self, item):
         pass
@@ -114,6 +121,10 @@ areas = [
 
 locations = dict(zip(zones, areas))
 
+def locations_stringify(zone):
+    loc_list = locations.get(zone)
+    return print(', '.join(loc_list))
+
 
 #-------------------------------------------------------------------------------------------------------------------#
 # Combat loop
@@ -139,7 +150,7 @@ def combat(player, enemy):
             if fleeChoice == 'yes' or fleeChoice == 'y':
                 if player.health <= 0:
                     print("You have died in the process of fleeing.")
-                    gameOver = True
+                    global gameOver
                     combatActive = False
                 else:
                     player.health -= 3
@@ -169,40 +180,40 @@ def shop():
 
 #-------------------------------------------------------------------------------------------------------------------#
 # main game
-
+gameOver = False
 def main():
-    gameOver = False
-    c_name = input("Please type in your character's name: ")
-    player = Character(c_name, 1, 'Player')
-    print(player)
-
-    print("""
-    The warmth of the sun radiates across your body.
-    Birds are chirping, the leaves are rustling from the breeze.
-    The cool morning air penetrates your nostrils.
-    Dirt, moss, a hint of wintergreen.
-    \"Where am I?\"
-    You hear a faint snort coming from behind.
-    """)
-    # first branching path
-    choice1 = int(input("""
-    Choose a number:
-    1. Go towards the noise.
-    2. Get away from the noise.
-    """))
-
-    if choice1 == 1:
+    while gameOver == False:
+        c_name = input("Please type in your character's name: ")
+        player = Character(c_name, 1, 'Player')
+        print(player)
+    
         print("""
-        You go towards the source of the noise and find yourself face to face with a wild boar!
-        The boar begins to squeal and is preparing to charge at you!
+        The warmth of the sun radiates across your body.
+        Birds are chirping, the leaves are rustling from the breeze.
+        The cool morning air penetrates your nostrils.
+        Dirt, moss, a hint of wintergreen.
+        \"Where am I?\"
+        You hear a faint snort coming from behind.
         """)
-        boar = Character("Boar", 1, "Enemy", 0, 10, 2, 0)
-        combat(player, boar)
-        print(player.levelUp(2))
-    else:
-        print("""
-        You decide to head the opposite direction.
-        """)
+        # first branching path
+        choice1 = int(input("""
+        Choose a number:
+        1. Go towards the noise.
+        2. Get away from the noise.
+        """))
+    
+        if choice1 == 1:
+            print("""
+            You go towards the source of the noise and find yourself face to face with a wild boar!
+            The boar begins to squeal and is preparing to charge at you!
+            """)
+            boar = Character("Boar", 1, "Enemy", 0, 10, 2, 0)
+            combat(player, boar)
+            print(player.levelUp(2))
+        else:
+            print("""
+            You decide to head the opposite direction.
+            """)
 
 
 if __name__ == "__main__":
