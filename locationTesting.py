@@ -6,7 +6,7 @@ areas = [
         ]
 
 locations = dict(zip(zones, areas))
-#print(locations)
+print(locations)
 
 for locations in locations.items():
     print(locations)

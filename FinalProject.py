@@ -12,7 +12,7 @@ Sources: Codecademy Python3 course, W3Schools, StackOverflow
 # TODO: Create system for locations
 # TODO: Create quest lines
 # TODO: Create a shopping loop function
-
+# TODO: Create actions menu
 #-------------------------------------------------------------------------------------------------------------------#
 # Characters
 
@@ -26,6 +26,7 @@ class Character:
     coins = 0
     attackPower = 0
     defensePower = 0
+    currentLocation = {}
 
     def __init__(self, name, level, group, coins=0, health=8, attackPower=5, defensePower=2):
         self.name = name
@@ -45,14 +46,14 @@ class Character:
 
     def __repr__(self):
         if self.group == 'Player':
+
             return f"""
             Your character is named {self.name}. {self.name} is level {self.level}. 
             {self.name} has {self.coins} coins.
             {self.name}'s attack power is {self.attackPower}. {self.name}'s defense power is {self.defensePower}.
             Currently in your inventory: {self.inventory}."""
         elif self.group == 'Enemy': # TODO: add repr for Enemies
-            return f"""
-            This is a level {self.level} {self.name} with {self.health} points of health."""
+            return f"This is a level {self.level} {self.name} with {self.health} points of health."
             pass
         elif self.group == 'NPC': # TODO: add repr for NPC (shopkeeps)
             pass    
@@ -96,6 +97,10 @@ class Character:
     def speak(self, NPC):
         pass
 
+    def setLocation(self, location):
+        self.currentLocation = location
+        return print(f'You are now located at the {self.currentLocation}.')
+
 #-------------------------------------------------------------------------------------------------------------------#
 # Location system
 # TODO: Create locations
@@ -107,12 +112,15 @@ class Character:
 
 zones = ["town", "forest", "dungeon"]
 areas = [
-        ["blacksmith", "potion stand", "inn", "town square"], 
+        ["town square", "inn", "potion stand", "blacksmith"], 
         ["lonely road", "stream", "dense brush"],
         ["entrance", "corridor", "treasure room", "trapped room"]
         ]
 
 locations = dict(zip(zones, areas))
+
+def choose_location():
+    pass
 
 
 #-------------------------------------------------------------------------------------------------------------------#
@@ -168,6 +176,13 @@ def shop():
 
 
 #-------------------------------------------------------------------------------------------------------------------#
+# actions menu
+
+# TODO: Define actions a character can do after each event (goto, view inventory, view status, etc...)
+def actions():
+    pass
+
+#-------------------------------------------------------------------------------------------------------------------#
 # main game
 
 def main():
@@ -181,7 +196,7 @@ def main():
     Birds are chirping, the leaves are rustling from the breeze.
     The cool morning air penetrates your nostrils.
     Dirt, moss, a hint of wintergreen.
-    \"Where am I?\"
+    \"Where am I?\", you ask yourself.
     You hear a faint snort coming from behind.
     """)
     # first branching path
@@ -203,7 +218,19 @@ def main():
         print("""
         You decide to head the opposite direction.
         """)
-
+    
+    print("""
+    After walking for a little while, you find a dirt road and decide to follow it.
+    """)
+    player.setLocation(locations['town'][0]) # town square
+    print("""
+    You see a map with various locations:
+    1. Town Square (You are here)
+    2. Inn
+    3. Potion Stand
+    4. Blacksmith
+    """)
+    new_loc = input("Where do you wish to go? (select number)")
 
 if __name__ == "__main__":
     main()
